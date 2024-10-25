@@ -3,8 +3,8 @@ import TelegramBot from "node-telegram-bot-api";
 
 import { NextResponse } from "next/server";
 
-const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
-const CHAT_ID = process.env.TELEGRAM_CHAT_ID;
+const BOT_TOKEN = "7724669103:AAHuiJCGlfM8zd7r12kuULGdRaS_9_-1t2Q";
+const CHAT_ID = "931579977";
 
 export const bot = new TelegramBot(BOT_TOKEN, { polling: false });
 
