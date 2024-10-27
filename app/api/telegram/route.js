@@ -3,8 +3,8 @@ import TelegramBot from "node-telegram-bot-api";
 
 import { NextResponse } from "next/server";
 
-const BOT_TOKEN = "7724669103:AAHuiJCGlfM8zd7r12kuULGdRaS_9_-1t2Q";
-const CHAT_ID = "931579977";
+const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
+const CHAT_ID = process.env.TELEGRAM_CHAT_ID;
 
 export const bot = new TelegramBot(BOT_TOKEN, { polling: false });
 
@@ -58,7 +58,7 @@ export const updateTradeState = (data) => {
           });
         });
       }
-      currentState.accountName = data.accountName; // This line sets the account name
+      currentState.accountName = data.accountName;
       break;
   }
 };
@@ -70,7 +70,10 @@ export const getCurrentState = () => {
   };
 };
 
+// ... existing code ...
+
 export async function POST(request) {
+  console.log("hehehehhhehe");
   try {
     const data = await request.json();
     console.log("dataaaaa: ", data);
@@ -86,8 +89,10 @@ export async function POST(request) {
 
     // Handle Telegram commands
     if (data.message?.text === "/status") {
+      console.log("");
       const state = getCurrentState();
       const statusMessage = formatStatusMessage(state);
+
       await sendMessage(statusMessage);
     }
 
@@ -100,6 +105,8 @@ export async function POST(request) {
     );
   }
 }
+
+// ... existing code ...
 function formatTradeMessage(data) {
   const { type, symbol, orderType, lots, profit, accountName } = data;
 
