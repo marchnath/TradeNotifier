@@ -9,6 +9,7 @@ const CHAT_ID = process.env.TELEGRAM_CHAT_ID;
 export const bot = new TelegramBot(BOT_TOKEN, { polling: false });
 
 export const sendMessage = async (message) => {
+  const bot = new TelegramBot(BOT_TOKEN, { polling: false }); // Moved inside the function
   try {
     await bot.sendMessage(CHAT_ID, message, { parse_mode: "HTML" });
   } catch (error) {
