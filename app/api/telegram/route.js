@@ -31,6 +31,7 @@ const updateTradeState = (data) => {
         type: "OPEN",
       });
       currentState.accountName = accountName;
+      console.log(currentState, "....current state");
       break;
     case "POSITION_CLOSED":
       currentState.positions.delete(data.ticket);
@@ -74,12 +75,15 @@ function formatTradeMessage(data) {
 }
 
 function formatStatusMessage(state) {
-  if (state.positions.length === 0) {
+  console.log("current positions...:", currentState.positions);
+  console.log("state...:", state);
+  if (currentState.positions.length === 0) {
+    console.log(state.positions, "state positions");
     return `
-<b>Отчет о статусе</b>
-Аккаунт: ${state.accountName}
-Нет активных позиций.
-`;
+  <b>Отчет о статусе</b>
+  Аккаунт: ${state.accountName}
+  Нет активных позиций.
+  `;
   }
 
   const positionsText = state.positions
@@ -103,6 +107,7 @@ ${positionsText}
 
 // Next.js API route handlers
 export async function POST(request) {
+  console.log("currentState..: ", currentState);
   try {
     const data = await request.json();
     console.log("Received data:", data);
